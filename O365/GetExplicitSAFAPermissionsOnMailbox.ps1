@@ -1,0 +1,3 @@
+Param($MAILBOXALIAS)
+Get-User -identity $MAILBOXALIAS | Get-365RecipientPermission | Where-Object {($_.AccessRights -match "SendAs") -and -not ($_.User -like "nt authority\self")} | Format-Table Identity, User -auto
+Get-365Mailbox "$MAILBOXALIAS" | Get-365MailboxPermission | Where-Object {($_.AccessRights -match "FullAccess") -and -not ($_.User -like "NT AUTHORITY\SELF")} | Format-Table Identity, User
